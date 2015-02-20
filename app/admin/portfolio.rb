@@ -1,4 +1,5 @@
 ActiveAdmin.register Portfolio do
+  permit_params :active
 
 
   # See permitted parameters documentation:
