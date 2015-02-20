@@ -1,5 +1,8 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
+group :development, :test do
+  gem 'dotenv-rails'
+end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'
@@ -58,7 +61,3 @@ gem 'rails_config'
 gem 'acts_as_votable', github: 'ryanto/acts_as_votable'
 gem 'tzinfo-data'
 gem 'validates_formatting_of'
-
-group :development, :test do
-  gem 'dotenv-rails'
-end
