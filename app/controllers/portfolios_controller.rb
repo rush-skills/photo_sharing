@@ -29,6 +29,7 @@ class PortfoliosController < ApplicationController
   # POST /portfolios.json
   def create
     @portfolio = Portfolio.new(portfolio_params)
+    @portfolio.user = current_user
 
     respond_to do |format|
       if @portfolio.save
