@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150220025139) do
+ActiveRecord::Schema.define(version: 20150220025213) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -46,6 +46,28 @@ ActiveRecord::Schema.define(version: 20150220025139) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
 
+  create_table "photos", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "portfolio_id"
+    t.integer  "user_id"
+    t.integer  "order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "photos", ["portfolio_id"], name: "index_photos_on_portfolio_id"
+  add_index "photos", ["user_id"], name: "index_photos_on_user_id"
+
+  create_table "portfolios", force: true do |t|
+    t.integer  "user_id"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "portfolios", ["user_id"], name: "index_portfolios_on_user_id"
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -63,10 +85,27 @@ ActiveRecord::Schema.define(version: 20150220025139) do
     t.string   "uid"
     t.string   "name"
     t.string   "username"
+    t.string   "category"
+    t.boolean  "approved"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["username"], name: "index_users_on_username", unique: true
+
+  create_table "votes", force: true do |t|
+    t.integer  "votable_id"
+    t.string   "votable_type"
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.boolean  "vote_flag"
+    t.string   "vote_scope"
+    t.integer  "vote_weight"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
 
 end
